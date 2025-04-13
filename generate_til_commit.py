@@ -34,10 +34,6 @@ def create_markdown_file(filepath, title):
             f.write(f"> 📅 작성일: {datetime.now().strftime('%Y-%m-%d')}\n\n")
             f.write("## 📌 핵심 요약\n\n- \n\n## 🔍 예시 코드\n\n```js\n// 예시\n```\n\n## 💭 느낀 점\n\n- ")
 
-def run_git_commands(filepath, commit_msg):
-    subprocess.run(["git", "add", filepath])
-    subprocess.run(["git", "commit", "-m", commit_msg])
-
 if __name__ == "__main__":
     if len(sys.argv) != 3:
         print("사용법: python generate_til_commit.py <카테고리> <챕터번호 또는 파일이름>")
@@ -59,12 +55,10 @@ if __name__ == "__main__":
         os.makedirs(os.path.dirname(filepath), exist_ok=True)
         create_markdown_file(filepath, title)
 
-        commit_msg = f"docs({category}): TIL - {title}"
-        run_git_commands(filepath, commit_msg)
-
         print(f"✅ 파일 생성 및 커밋 완료!")
         print(f"📄 파일 경로: {filepath}")
-        print(f"📝 커밋 메시지: {commit_msg}")
+        print(f"📝 문서 제목: {title}")
+
 
     except Exception as e:
         print(f"❌ 오류: {e}")
